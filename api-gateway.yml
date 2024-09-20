@@ -31,8 +31,8 @@ server:
   port: 9090
 #Swagger UI Config
 springdoc:
-    swagger-ui:
-      url: /swagger-ui/index.html
+  swagger-ui:
+    path: /swagger-ui/index.html
 #Register into Eureka
 eureka:
   client:
