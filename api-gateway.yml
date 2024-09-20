@@ -20,13 +20,13 @@ spring:
           predicates:
             - Path=/v3/api-docs/keycloak-admin-client
           filters:
-            - rewritePath=/v3/api-docs/keycloak-admin-client,/v3/api-docs
+            - RewritePath=/v3/api-docs/keycloak-admin-client,/v3/api-docs
         - id: task-service-swagger
           uri: lb://task-service
           predicates:
             - Path=/v3/api-docs/task-service
           filters:
-            - rewritePath=/v3/api-docs/task-service,/v3/api-docs
+            - RewritePath=/v3/api-docs/task-service,/v3/api-docs
 server:
   port: 9090
 #Swagger UI Config
