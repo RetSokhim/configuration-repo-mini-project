@@ -1,6 +1,38 @@
 spring:
   application:
     name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        #Normal Config
+        - id: keycloak-admin-client
+          uri: lb://keycloak-admin-client
+          predicates:
+            - Path=/api/v1/**
+        - id: task-service
+          uri: lb://task-service
+          predicates:
+            - Path=/api/v1/**
+        
+        #Configure Swagger With Gateway
+        - id: keycloak-admin-client-swagger
+          uri: lb://keycloak-admin-client
+          predicates:
+            - Path=/v3/api-docs/keycloak-admin-client
+          filters:
+            - rewritePath=/v3/api-docs/keycloak-admin-client,/v3/api-docs
+        - id: task-service-swagger
+          uri: lb://task-service
+          predicates:
+            - Path=/v3/api-docs/task-service
+          filters:
+            - rewritePath=/v3/api-docs/task-service,/v3/api-docs
+server:
+  port: 9090
+#Swagger UI Config
+springdoc:
+    swagger-ui:
+      url: /swagger-ui/index.html
 #Register into Eureka
 eureka:
   client:
