@@ -8,11 +8,11 @@ spring:
         - id: keycloak-admin-client
           uri: lb://keycloak-admin-client
           predicates:
-            - Path=/api/v1/**
+            - Path=/api/v1/group/** , /api/v1/user/**
         - id: task-service
           uri: lb://task-service
           predicates:
-            - Path=/api/v1/**
+            - Path=/api/v1/task/**
         
         #Configure Swagger With Gateway
         - id: keycloak-admin-client-swagger
