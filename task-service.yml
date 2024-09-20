@@ -1,6 +1,11 @@
 spring:
   application:
     name: task-service
+#DataBase
+  datasource:
+    url: jdbc:postgresql://localhost:5433/mini_project_db
+    username: user
+    password: 123
 #Register Into Eureka
 eureka:
   client:
