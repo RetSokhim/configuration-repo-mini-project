@@ -36,7 +36,7 @@ spring:
         - id: keycloak-admin-client
           uri: lb://keycloak-admin-client
           predicates:
-            - Path=/api/v1/admin/**
+            - Path=/api/v1/user/** , /api/v1/group/**
           filters:
             - RemoveRequestHeader=Cookie
             - AddRequestHeader=Authorization, Bearer {token}
