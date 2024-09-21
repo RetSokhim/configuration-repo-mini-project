@@ -1,22 +1,6 @@
 spring:
   application:
     name: api-gateway
-  security:
-    oauth2:
-      client:
-        registration:
-          keycloak:
-            client-id: keycloak-admin-client  # Replace with your client ID
-            client-secret: EqCifnC9y3YRM9u2JqToBRnZqaH7al8J  # Replace with your client secret
-            authorization-grant-type: client_credentials
-            scope: openid
-            provider: keycloak
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8080/realms/master  # Keycloak realm issuer URI
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080/realms/master
   cloud:
     gateway:
       routes:
@@ -25,17 +9,11 @@ spring:
           uri: lb://keycloak-admin-client
           predicates:
             - Path=/api/v1/group/** , /api/v1/user/**
-          filters:
-            - RemoveRequestHeader=Cookie
-            - AddRequestHeader=Authorization, Bearer {token}
         - id: task-service
           uri: lb://task-service
           predicates:
             - Path=/api/v1/task/**
-          filters:
-            - RemoveRequestHeader=Cookie
-            - AddRequestHeader=Authorization, Bearer {token}
-        
+
         #Configure Swagger With Gateway
         - id: keycloak-admin-client-swagger
           uri: lb://keycloak-admin-client
@@ -54,18 +32,7 @@ server:
 #Swagger UI Config
 springdoc:
   swagger-ui:
-    oauth:
-      client-id: keycloak-admin-client        # Your client ID for Keycloak
-      client-secret: EqCifnC9y3YRM9u2JqToBRnZqaH7al8J  # Your client secret for Keycloak
-      authorization-url: http://localhost:8080/realms/master/protocol/openid-connect/auth  # Keycloak auth URL
-      token-url: http://localhost:8080/realms/master/protocol/openid-connect/token  # Keycloak token endpoint
-      scopes: openid                          # Scopes you want to request
     path: /swagger-ui/index.html
-  oauth2:
-    client-credentials-flow:
-      client-id: keycloak-admin-client        # Your client ID
-      client-secret: EqCifnC9y3YRM9u2JqToBRnZqaH7al8J  # Your client secret
-      token-url: http://localhost:8080/realms/master/protocol/openid-connect/token  # Keycloak token endpoint
 #Register into Eureka
 eureka:
   client:
