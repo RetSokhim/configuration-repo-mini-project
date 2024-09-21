@@ -9,8 +9,8 @@ spring:
       client:
         registration:
           keycloak:
-            client-id: dNH47HBq2XdwPZOSR1IcpKIoPr20dWLn  # Your Gateway Client ID
-            client-secret: api-gateway  # Your Client Secret
+            client-id: api-gateway # Your Gateway Client ID
+            client-secret: dNH47HBq2XdwPZOSR1IcpKIoPr20dWLn  # Your Client Secret
             authorization-grant-type: client_credentials
             scope: openid
             provider: keycloak
