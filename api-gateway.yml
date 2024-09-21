@@ -1,6 +1,22 @@
 spring:
   application:
     name: api-gateway
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: keycloak-admin-client  # Replace with your client ID
+            client-secret: EqCifnC9y3YRM9u2JqToBRnZqaH7al8J  # Replace with your client secret
+            authorization-grant-type: client_credentials
+            scope: openid
+            provider: keycloak
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/master  # Keycloak realm issuer URI
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/master
   cloud:
     gateway:
       routes:
@@ -9,10 +25,16 @@ spring:
           uri: lb://keycloak-admin-client
           predicates:
             - Path=/api/v1/group/** , /api/v1/user/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AddRequestHeader=Authorization, Bearer {token}
         - id: task-service
           uri: lb://task-service
           predicates:
             - Path=/api/v1/task/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AddRequestHeader=Authorization, Bearer {token}
         
         #Configure Swagger With Gateway
         - id: keycloak-admin-client-swagger
