@@ -1,55 +1,73 @@
 spring:
   application:
     name: api-gateway
+  main:
+    web-application-type: reactive
+
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: dNH47HBq2XdwPZOSR1IcpKIoPr20dWLn  # Your Gateway Client ID
+            client-secret: api-gateway  # Your Client Secret
+            authorization-grant-type: client_credentials
+            scope: openid
+            provider: keycloak
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/master # Keycloak realm URI
+
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/master  # Issuer URI for JWT validation
+
   cloud:
     gateway:
       routes:
-        #Normal Config
-        - id: keycloak-admin-client
-          uri: lb://keycloak-admin-client
-          predicates:
-            - Path=/api/v1/group/** , /api/v1/user/**
         - id: task-service
           uri: lb://task-service
           predicates:
             - Path=/api/v1/task/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AddRequestHeader=Authorization, Bearer {token}
 
-        #Configure Swagger With Gateway
+        - id: keycloak-admin-client
+          uri: lb://keycloak-admin-client
+          predicates:
+            - Path=/api/v1/admin/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AddRequestHeader=Authorization, Bearer {token}
+
+        # Swagger configuration (optional)
         - id: keycloak-admin-client-swagger
           uri: lb://keycloak-admin-client
           predicates:
             - Path=/v3/api-docs/keycloak-admin-client
           filters:
             - RewritePath=/v3/api-docs/keycloak-admin-client,/v3/api-docs
-        - id: task-service-swagger
+        - id: task-service
           uri: lb://task-service
           predicates:
             - Path=/v3/api-docs/task-service
           filters:
             - RewritePath=/v3/api-docs/task-service,/v3/api-docs
+
 server:
   port: 9090
-#Swagger UI Config
-springdoc:
-  swagger-ui:
-    path: /swagger-ui/index.html
-#Register into Eureka
+
 eureka:
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
       defaultZone: http://localhost:8761/eureka/
-  instance:
-    prefer-ip-address: true
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, metrics, circuitbreakers
-  health:
-    circuitbreakers:
-      enabled: true
-  tracing:
-    sampling:
-      probability: 1.0
+
+springdoc:
+  swagger-ui:
+    oauth2-redirect-url: http://localhost:9090/swagger-ui/oauth2-redirect.html
+    path: /swagger-ui/index.html
+  api-docs:
+    path: /v3/api-docs

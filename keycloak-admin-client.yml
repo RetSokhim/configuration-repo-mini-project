@@ -1,6 +1,17 @@
 spring:
   application:
     name: keycloak-admin-client
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/master
+keycloak:
+  auth-server-url: http://localhost:8080
+  realm: my-realm
+  resource: keycloak-admin-client
+  credentials:
+    secret: fEjVM5MaOdYuTDpbqb3xJQFQCei7kVUs
 #Register Into Eureka
 eureka:
   client:
