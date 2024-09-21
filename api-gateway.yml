@@ -54,7 +54,18 @@ server:
 #Swagger UI Config
 springdoc:
   swagger-ui:
+    oauth:
+      client-id: keycloak-admin-client        # Your client ID for Keycloak
+      client-secret: EqCifnC9y3YRM9u2JqToBRnZqaH7al8J  # Your client secret for Keycloak
+      authorization-url: http://localhost:8080/realms/master/protocol/openid-connect/auth  # Keycloak auth URL
+      token-url: http://localhost:8080/realms/master/protocol/openid-connect/token  # Keycloak token endpoint
+      scopes: openid                          # Scopes you want to request
     path: /swagger-ui/index.html
+  oauth2:
+    client-credentials-flow:
+      client-id: keycloak-admin-client        # Your client ID
+      client-secret: EqCifnC9y3YRM9u2JqToBRnZqaH7al8J  # Your client secret
+      token-url: http://localhost:8080/realms/master/protocol/openid-connect/token  # Keycloak token endpoint
 #Register into Eureka
 eureka:
   client:
