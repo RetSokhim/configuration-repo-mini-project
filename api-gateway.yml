@@ -3,24 +3,24 @@ spring:
     name: api-gateway
   main:
     web-application-type: reactive
-
   security:
     oauth2:
       client:
         registration:
           keycloak:
-            client-id: api-gateway # Your Gateway Client ID
+            client-id: api-gateway  # Your Gateway Client ID
             client-secret: dNH47HBq2XdwPZOSR1IcpKIoPr20dWLn  # Your Client Secret
             authorization-grant-type: client_credentials
             scope: openid
             provider: keycloak
         provider:
           keycloak:
-            issuer-uri: http://localhost:8080/realms/master # Keycloak realm URI
-
+            issuer-uri: http://localhost:8080/realms/master
+            token-uri: http://localhost:8080/realms/master/protocol/openid-connect/token
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/master  # Issuer URI for JWT validation
+          issuer-uri: http://localhost:8080/realms/master
+          jwk-set-uri: http://localhost:8080/realms/master/protocol/openid-connect/certs
 
   cloud:
     gateway:
@@ -31,24 +31,24 @@ spring:
             - Path=/api/v1/task/**
           filters:
             - RemoveRequestHeader=Cookie
-            - AddRequestHeader=Authorization, Bearer {token}
+            - TokenRelay
 
         - id: keycloak-admin-client
           uri: lb://keycloak-admin-client
           predicates:
-            - Path=/api/v1/user/** , /api/v1/group/**
+            - Path=/api/v1/user/**, /api/v1/group/**
           filters:
             - RemoveRequestHeader=Cookie
-            - AddRequestHeader=Authorization, Bearer {token}
+            - TokenRelay
 
-        # Swagger configuration (optional)
+        # Swagger configuration
         - id: keycloak-admin-client-swagger
           uri: lb://keycloak-admin-client
           predicates:
             - Path=/v3/api-docs/keycloak-admin-client
           filters:
             - RewritePath=/v3/api-docs/keycloak-admin-client,/v3/api-docs
-        - id: task-service
+        - id: task-service-swagger
           uri: lb://task-service
           predicates:
             - Path=/v3/api-docs/task-service
@@ -69,5 +69,9 @@ springdoc:
   swagger-ui:
     oauth2-redirect-url: http://localhost:9090/swagger-ui/oauth2-redirect.html
     path: /swagger-ui/index.html
+    oauth:
+      client-id: api-gateway
+      client-secret: dNH47HBq2XdwPZOSR1IcpKIoPr20dWLn
+      scopes: openid
   api-docs:
     path: /v3/api-docs
