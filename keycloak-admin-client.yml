@@ -6,6 +6,14 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/master  # Verify JWT tokens from Keycloak realm
+keycloak:
+  realm: master
+  resource: api-gateway
+  auth-server-url: http://localhost:8080/auth/ #docker container
+  credentials:
+    client-id: api-gateway
+    secret: ROPjeDEgbS3otk8M3fgf8YsqdNnbwxV1
+    provider: secret
 # Eureka Configuration
 eureka:
   client:
