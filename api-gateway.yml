@@ -21,7 +21,6 @@ spring:
         jwt:
           issuer-uri: http://localhost:8080/realms/master
           jwk-set-uri: http://localhost:8080/realms/master/protocol/openid-connect/certs
-
   cloud:
     gateway:
       routes:
@@ -54,7 +53,6 @@ spring:
             - Path=/v3/api-docs/task-service
           filters:
             - RewritePath=/v3/api-docs/task-service,/v3/api-docs
-
 server:
   port: 9090
 
