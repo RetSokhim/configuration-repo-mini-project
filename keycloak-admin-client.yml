@@ -9,7 +9,7 @@ spring:
 keycloak:
   realm: master
   resource: api-gateway
-  auth-server-url: http://localhost:8080/auth/ #docker container
+  auth-server-url: http://localhost:8080 #docker container
   credentials:
     client-id: api-gateway
     secret: P6tRiG4w1RROp60zWybi8WY9kcOZlPZB
