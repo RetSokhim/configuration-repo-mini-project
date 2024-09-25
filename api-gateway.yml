@@ -9,7 +9,7 @@ spring:
         registration:
           keycloak:
             client-id: api-gateway  # Your Gateway Client ID
-            client-secret: fRz2vJjIeM69NB06LbcujMWwZxzWYJlG  # Your Client Secret
+            client-secret: 6puVXtDtCu6813sSGvAD4DBTkXZXeoqi  # Your Client Secret
             authorization-grant-type: client_credentials
             scope: openid
             provider: keycloak
@@ -71,7 +71,7 @@ springdoc:
     path: /swagger-ui/index.html
     oauth:
       client-id: api-gateway
-      client-secret: fRz2vJjIeM69NB06LbcujMWwZxzWYJlG
+      client-secret: 6puVXtDtCu6813sSGvAD4DBTkXZXeoqi
       scopes: openid
   api-docs:
     path: /v3/api-docs
