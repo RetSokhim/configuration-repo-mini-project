@@ -11,6 +11,9 @@ spring:
     url: jdbc:postgresql://localhost:5433/mini_project_db
     username: user
     password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
 # Eureka Configuration
 eureka:
   client:
