@@ -1,6 +1,8 @@
 spring:
   application:
     name: task-service
+  main:
+    allow-bean-definition-overriding: true
   security:
     oauth2:
       resourceserver:
