@@ -7,7 +7,7 @@ spring:
         jwt:
           issuer-uri: http://localhost:8080/realms/master  # Verify JWT tokens from Keycloak realm
 keycloak:
-  realm: master
+  realm: mini-project-2-g3
   resource: api-gateway
   auth-server-url: http://localhost:8080 #docker container
   credentials:
