@@ -5,7 +5,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/mini-project-2-g3  # Verify JWT tokens from Keycloak realm
+          issuer-uri: http://localhost:8080/realms/master  # Verify JWT tokens from Keycloak realm
   # DataBase Configuration
   datasource:
     url: jdbc:postgresql://localhost:5432/task_db

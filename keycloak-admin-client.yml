@@ -5,14 +5,14 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/mini-project-2-g3  # Verify JWT tokens from Keycloak realm
+          issuer-uri: http://localhost:8080/realms/master  # Verify JWT tokens from Keycloak realm
 keycloak:
-  realm: mini-project-2-g3
-  resource: mini-project-client
+  realm: api-gateway
+  resource: api-gateway
   auth-server-url: http://localhost:8080 #docker container
   credentials:
-    client-id: mini-project-client
-    secret: Y68PxKVjBIotfUHkwxUsTgjljEuRbu0g
+    client-id: api-gateway
+    secret: fRz2vJjIeM69NB06LbcujMWwZxzWYJlG
     provider: secret
 # Eureka Configuration
 eureka:

@@ -8,19 +8,19 @@ spring:
       client:
         registration:
           keycloak:
-            client-id: mini-project-client  # Your Gateway Client ID
-            client-secret: Y68PxKVjBIotfUHkwxUsTgjljEuRbu0g  # Your Client Secret
+            client-id: api-gateway  # Your Gateway Client ID
+            client-secret: fRz2vJjIeM69NB06LbcujMWwZxzWYJlG  # Your Client Secret
             authorization-grant-type: client_credentials
             scope: openid
             provider: keycloak
         provider:
           keycloak:
-            issuer-uri: http://localhost:8080/realms/mini-project-2-g3
-            token-uri: http://localhost:8080/realms/mini-project-2-g3/protocol/openid-connect/token
+            issuer-uri: http://localhost:8080/realms/master
+            token-uri: http://localhost:8080/realms/master/protocol/openid-connect/token
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/mini-project-2-g3
-          jwk-set-uri: http://localhost:8080/realms/mini-project-2-g3/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8080/realms/master
+          jwk-set-uri: http://localhost:8080/realms/master/protocol/openid-connect/certs
 
   cloud:
     gateway:
@@ -70,8 +70,8 @@ springdoc:
     oauth2-redirect-url: http://localhost:9090/swagger-ui/oauth2-redirect.html
     path: /swagger-ui/index.html
     oauth:
-      client-id: mini-project-client
-      client-secret: Y68PxKVjBIotfUHkwxUsTgjljEuRbu0g
+      client-id: api-gateway
+      client-secret: fRz2vJjIeM69NB06LbcujMWwZxzWYJlG
       scopes: openid
   api-docs:
     path: /v3/api-docs
