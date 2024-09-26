@@ -11,8 +11,8 @@ keycloak:
   resource: api-gateway
   auth-server-url: http://localhost:8080 #docker container
   credentials:
-    client-id: api-gateway
-    secret: fRz2vJjIeM69NB06LbcujMWwZxzWYJlG
+    client-id: mini-project-client
+    secret: Y68PxKVjBIotfUHkwxUsTgjljEuRbu0g
     provider: secret
 # Eureka Configuration
 eureka:

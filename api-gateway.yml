@@ -8,8 +8,8 @@ spring:
       client:
         registration:
           keycloak:
-            client-id: api-gateway  # Your Gateway Client ID
-            client-secret: fRz2vJjIeM69NB06LbcujMWwZxzWYJlG  # Your Client Secret
+            client-id: mini-project-client  # Your Gateway Client ID
+            client-secret: Y68PxKVjBIotfUHkwxUsTgjljEuRbu0g  # Your Client Secret
             authorization-grant-type: client_credentials
             scope: openid
             provider: keycloak
@@ -70,8 +70,8 @@ springdoc:
     oauth2-redirect-url: http://localhost:9090/swagger-ui/oauth2-redirect.html
     path: /swagger-ui/index.html
     oauth:
-      client-id: api-gateway
-      client-secret: fRz2vJjIeM69NB06LbcujMWwZxzWYJlG
+      client-id: mini-project-client
+      client-secret: Y68PxKVjBIotfUHkwxUsTgjljEuRbu0g
       scopes: openid
   api-docs:
     path: /v3/api-docs
