@@ -15,12 +15,12 @@ spring:
             provider: keycloak
         provider:
           keycloak:
-            issuer-uri: http://localhost:8080/realms/master
-            token-uri: http://localhost:8080/realms/master/protocol/openid-connect/token
+            issuer-uri: http://localhost:8080/realms/mini-project-2-g3
+            token-uri: http://localhost:8080/realms/mini-project-2-g3/protocol/openid-connect/token
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/master
-          jwk-set-uri: http://localhost:8080/realms/master/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8080/realms/mini-project-2-g3
+          jwk-set-uri: http://localhost:8080/realms/mini-project-2-g3/protocol/openid-connect/certs
 
   cloud:
     gateway:
