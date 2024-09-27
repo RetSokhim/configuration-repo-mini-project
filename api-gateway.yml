@@ -32,6 +32,10 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - TokenRelay
+            - name: CircuitBreaker
+              args:
+                name: taskCircuitBreaker
+                fallbackUri: forward:/fallback/task
 
         - id: keycloak-admin-client
           uri: lb://keycloak-admin-client
@@ -40,6 +44,10 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - TokenRelay
+            - name: CircuitBreaker
+              args:
+                name: keyCloakAdminClientCircuitBreaker
+                fallbackUri: forward:/fallback/keyCloakAdminClient
 
         # Swagger configuration
         - id: keycloak-admin-client-swagger
@@ -57,7 +65,24 @@ spring:
 
 server:
   port: 9090
-
+#CircuitBreaker with resilience4j
+resilience4j:
+  circuitbreaker:
+    instances:
+      keyCloakAdminClientCircuitBreaker:
+        slidingWindowSize: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
+        automatic-transition-from-open-to-half-open-enabled: true
+        permittedNumberOfCallsInHalfOpenState: 5
+        register-health-indicator: true
+      taskCircuitBreaker:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
+        automatic-transition-from-open-to-half-open-enabled: true
+        permittedNumberOfCallsInHalfOpenState: 5
+        register-health-indicator: true
 eureka:
   client:
     fetch-registry: true
